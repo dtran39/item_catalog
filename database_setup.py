@@ -10,27 +10,25 @@ from sqlalchemy import create_engine
 Base = declarative_base()
 # End beginning configuration
 # Part 2: Classes: represent data in python
-class Restaurant(Base):
+class Category(Base):
     # Official name of the table in sql
-    __tablename__ = 'restaurant'
+    __tablename__ = 'category'
     # Mapper codes: creates variables used to create columns within our db
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
 
-class MenuItem(Base):
-    __tablename__ = 'menu_item'
-    # nullable = False mean null value is not tolerated
-    name =Column(String(80), nullable = False)
+class Item(Base):
+    __tablename__ = 'item'
     # primary_key = true -> each entry's id is unique
     id = Column(Integer, primary_key = True)
+    # nullable = False mean null value is not tolerated
+    name = Column(String(80), nullable = False)
     description = Column(String(250))
-    price = Column(String(8))
-    course = Column(String(250))
-    restaurant_id = Column(Integer,ForeignKey('restaurant.id'))
-    restaurant = relationship(Restaurant)
+    category_id = Column(Integer,ForeignKey('category.id'))
+    category = relationship(Category)
 # Part 1 in the end:
 #   Connects to an existing db (or create a new one)
 # A new .db file will be created
-engine = create_engine('sqlite:///restaurantmenu.db')
+engine = create_engine('sqlite:///item_catalog.db')
 # Go to the db, and add those new tables to it
 Base.metadata.create_all(engine)
