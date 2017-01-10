@@ -1,0 +1,6 @@
+{% extends "main.html" %}
+{% block content %}
+  {% for an_item in items %}
+    {{ an_item.name }}: {{ an_item.description }}</br>
+  {% endfor %}
+{% endblock %}

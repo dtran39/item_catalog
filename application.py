@@ -11,13 +11,11 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-
+# Show all categories
 @app.route('/')
-@app.route('/hello')
-def HelloWorld():
-    category = session.query(Category).filter_by(name='Snowboarding').first()
-    items = session.query(Item).filter_by(category_id=category.id).all()
-    return render_template('main.html', items=items)
+def showCategories():
+    categories = session.query(Category).all()
+    return render_template('categories.html', items=categories)
 
 if __name__ == '__main__':
     app.debug = True
